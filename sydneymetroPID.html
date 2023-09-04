@@ -1,0 +1,319 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Sydney Metro PID</title>
+
+<style>
+ @import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&family=Libre+Franklin:wght@500&family=Public+Sans:wght@600&family=Roboto&display=swap');
+
+
+.div1 {
+background-color: #98C4E2;
+width: 1350px;
+height: 200px;
+margin-top: 20px;
+}
+
+.nextservice {
+ background-color: #015E73;
+width: 100%;
+height: 120px;
+}
+
+.metrogreet {
+font-size: 30px;
+font-family: 'Roboto', sans-serif;
+margin-top: 1px;
+}
+.metrobase {
+width: 800px;
+height: 40px;
+background-color: #B7B7B7;
+position: fixed;
+bottom: 3%;
+left: 25%;
+}
+
+.station1 {
+font-size: 60px;
+position: fixed;
+left: 9%;
+top: 16%;
+font-family: 'Didact Gothic', sans-serif;
+font-family: 'Libre Franklin', sans-serif;
+font-family: 'Public Sans', sans-serif;
+font-family: 'Roboto', sans-serif;
+}
+
+.min1 {
+position: fixed;
+right: 12%;
+font-size: 60px;
+top: 16%;
+font-family: 'Didact Gothic', sans-serif;
+font-family: 'Libre Franklin', sans-serif;
+font-family: 'Public Sans', sans-serif;
+font-family: 'Roboto', sans-serif;
+}
+
+.min2 {
+position: fixed;
+right: 12%;
+font-size: 60px;
+top: 40%;
+font-family: 'Didact Gothic', sans-serif;
+font-family: 'Libre Franklin', sans-serif;
+font-family: 'Public Sans', sans-serif;
+font-family: 'Roboto', sans-serif;
+}
+
+.station2 {
+font-size: 60px;
+position: fixed;
+left: 9%;
+top: 40%;
+font-family: 'Didact Gothic', sans-serif;
+font-family: 'Libre Franklin', sans-serif;
+font-family: 'Public Sans', sans-serif;
+font-family: 'Roboto', sans-serif;
+}
+.div2 {
+width: 1350px;
+height: 200px;
+}
+.min3 {
+position: fixed;
+right: 12%;
+font-size: 60px;
+top: 65%;
+font-family: 'Didact Gothic', sans-serif;
+font-family: 'Libre Franklin', sans-serif;
+font-family: 'Public Sans', sans-serif;
+font-family: 'Roboto', sans-serif;
+}
+
+.station3 {
+font-size: 60px;
+position: fixed;
+left: 9%;
+top: 65%;
+font-family: 'Didact Gothic', sans-serif;
+font-family: 'Libre Franklin', sans-serif;
+font-family: 'Public Sans', sans-serif;
+font-family: 'Roboto', sans-serif;
+}
+.div3 {
+width: 1350px;
+height: 200px;
+background-color: #98C4E2;
+}
+
+.nextservicep {
+font-family: 'Public Sans', sans-serif;
+position: fixed;
+left: 2%;
+top: 2%;
+color: white;
+font-size: 35px;
+}
+
+.time {
+font-size: 35px;
+position: fixed;
+top: 2%;
+right: 3%;
+font-family: 'Public Sans', sans-serif;
+color: white;
+}
+
+.dissapear {
+display: block;
+}
+.pannounce {
+display: block;
+font-family: 'Public Sans', sans-serif;
+margin: 50px;
+word-wrap: break-word;
+display: flex;
+flex-direction: column-reverse;
+font-size: 70px;
+animation: announceroll 8s linear;
+position: relative;
+color: #2596be;
+display: none;
+}
+@keyframes announceroll {
+  0% {
+    bottom: 0px;
+display: block;  
+}
+
+100% {
+    bottom: -400px;
+
+}
+}
+
+</style>
+</head>
+<body> 
+<center>
+<div class="nextservice"><p class="nextservicep">Next Service</p><p class="time" id="timeDisplay"></p></div>
+<div id="dissapear" class="dissapear">
+<div class="div1"><p id="station1" class="station1">TALLAWONG</p><p id="min1" class="min1">10 Min</p></div>
+<div class="div2"><p id="station2" class="station2">TALLAWONG</p><p id="min2" class="min2">20 Min</p></div>
+<div class="div3"><p id="station3" class="station3">TALLAWONG</p><p id="min3" class="min3">30 Min</p></div>
+<div class="metrobase"><p id="metrogreet" p class="metrogreet">Welcome to Sydney Metro</p></div>
+</div>
+<p id="pannounce" class="pannounce">The services to Tallawong have been delayed however the displays will not show anything different to the current schedule.</p>
+
+<script>
+var time1 = 10;
+var time2 = 20;
+var time3 = 30;
+var announce = 1;
+
+function updateTime() {
+  const currentTime = new Date();
+  const hours = currentTime.getHours();
+  const minutes = currentTime.getMinutes();
+  const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+  document.getElementById("timeDisplay").textContent = formattedTime;
+
+station1();
+station2();
+station3();
+}
+
+function updateMin1() {
+  var min1 = document.getElementById("min1");
+  if (time1 > 1) {
+    time1 = time1 - 1;
+    min1.textContent = time1 + " Min";
+  } else if (time1 === 1) {
+    time1 = 0;
+    min1.textContent = "Now";
+  } else {
+    time1 = 10;
+    min1.textContent = time1 + " Min";
+  }
+}
+
+function updateMin2() {
+  var min2 = document.getElementById("min2");
+  if (time2 > 10) {
+    time2 = time2 - 1;
+    min2.textContent = time2 + " Min";
+  } else if (time2 === 10) {
+    time2 = 20;
+    min2.textContent = time2 + " Min";
+  } else {
+    time2 = 19;
+    min2.textContent = time2 + " Min";
+  }
+}
+
+function updateMin3() {
+  var min3 = document.getElementById("min3");
+  if (time3 > 20) {
+    time3 = time3 - 1;
+    min3.textContent = time3 + " Min";
+  } else if (time3 === 20) {
+    time3 = 30;
+    min3.textContent = time3 + " Min";
+  } else {
+    time3 = 29;
+    min3.textContent = time3 + " Min";
+  }
+}
+
+function station1() {
+const currentTime = new Date();
+const hours = currentTime.getHours();
+var station1 = document.getElementById("station1")
+  if (hours >= 24 || hours < 5) {
+    station1.textContent = "Service Terminates Here";
+  } else {
+    station1.textContent = "TALLAWONG";
+  }
+}
+function station2() {
+const currentTime = new Date();
+const hours = currentTime.getHours();
+var station2 = document.getElementById("station2")
+  if (hours >= 24 || hours < 5) {
+    station2.textContent = "Service Terminates Here";
+  } else {
+    station2.textContent = "TALLAWONG";
+  }
+}
+function station3() {
+const currentTime = new Date();
+const hours = currentTime.getHours();
+var station3 = document.getElementById("station3")
+var metrogreet = document.getElementById("metrogreet")
+
+  if (hours >= 24 || hours < 5) {
+    station3.textContent = "Service Terminates Here";
+ metrogreet.textContent = "This service is closed. Come back here at 5am"
+ } else {
+    station3.textContent = "TALLAWONG";
+metrogreet.textContent = "Welcome to Sydney Metro"
+  }
+}
+
+function announcement() {
+  var randomnum = Math.floor(Math.random() * 101);
+  var pannounce = document.getElementById("pannounce");
+  var dissapear = document.getElementById("dissapear");
+
+  if (randomnum === 10) {
+    pannounce.textContent = "The services to Tallawong have been delayed however the displays will not show anything different to the current schedule.";
+    pannounce.style.display = "block";
+    dissapear.style.display = "none";
+
+    setTimeout(function () {
+      pannounce.style.display = "none";
+      dissapear.style.display = "block";
+    }, 4000); // 4 seconds (4000 milliseconds)
+  }
+
+  if (randomnum === 20) {
+    pannounce.textContent = "Change at Epping to continue to Chatswood as there is some trackwork as some metros are going out of service.";
+    pannounce.style.display = "block";
+    dissapear.style.display = "none";
+
+    setTimeout(function () {
+      pannounce.style.display = "none";
+      dissapear.style.display = "block";
+    }, 4000); // 4 seconds (4000 milliseconds)
+  }
+
+  if (randomnum === 50) {
+    pannounce.textContent = "A non-stopping train will go past this platform.";
+    pannounce.style.display = "block";
+    dissapear.style.display = "none";
+
+    setTimeout(function () {
+      pannounce.style.display = "none";
+      dissapear.style.display = "block";
+    }, 4000); // 4 seconds (4000 milliseconds)
+  }
+}
+
+updateTime();
+updateMin1();
+updateMin2();
+updateMin3();
+
+setInterval(announcement, 500)
+setInterval(updateTime, 60); 
+setInterval(updateMin1, 60000); 
+setInterval(updateMin2, 60000); 
+setInterval(updateMin3, 60000);
+setInterval(updateMin1, 60000);  
+
+</script>
+</body>
+</html>
